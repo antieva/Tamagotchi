@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tamagotchi</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  </head>
+  <body
+    <div class = "container">
+    <h1>Your Tamagotchi to take care of:</h1>
+    <ul>
+    @foreach(var life in Model)
+      {
+        <li><h4>@life.GetName()</h4></li>
+          <ul>
+            <li>Food: @life.GetFood()points</li>
+            <li>Play: @life.GetPlay()points</li>
+            <li>Sleep: @life.GetSleep()points</li>
+          </ul>
+      }
+    </ul>
+    <p><a href="/Tamagotchis/new">Give life to another Tamagotchi</a></p>
+        <form action="/tamagotchis/delete" method="post">
+          <button type="submit" name="button" class='btn btn-danger'>Kill All  Tamagotchis</button>
+        </form>
+        <form action="/tamagotchis/food" method="post">
+          <button type="submit" name="button" class='btn btn-primary'>Feed All  Tamagotchis</button>
+        </form>
+        <form action="/tamagotchis/play" method="post">
+          <button type="submit" name="button" class='btn btn-primary'>Play with All  Tamagotchis</button>
+        </form>
+        <form action="/tamagotchis/sleep" method="post">
+          <button type="submit" name="button" class='btn btn-primary'>Get All  Tamagotchis to Sleep</button>
+        </form>
+    </div>
+  </body>
+</html>
