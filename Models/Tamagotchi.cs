@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System;
-namespace Tamagotchi.Models
+namespace TamagotchiApp.Models
 {
   public class Tamagotchi
   {
@@ -8,6 +8,7 @@ namespace Tamagotchi.Models
     private int _food;
     private int _play;
     private int _sleep;
+    private int _id;
     private static  List<Tamagotchi> _lives = new List<Tamagotchi> {};
 
     public Tamagotchi (string name, int food, int play, int sleep)
@@ -16,34 +17,39 @@ namespace Tamagotchi.Models
       _food = food;
       _play = play;
       _sleep = sleep;
+      _id = _lives.Count + 1;
     }
     public string GetName()
     {
       return _name;
     }
-    public int GetFood();
+    public int GetFood()
     {
       return _food;
     }
-    public int GetPlay();
+    public int GetPlay()
     {
       return _play;
     }
-    public int GetSleep();
+    public int GetSleep()
     {
       return _sleep;
     }
-    public void SetFood(int food)
+    public int GetId()
     {
-      _food = food;
+      return _id;
     }
-    public void SetPlay(int play)
+    public void SetFood(int point)
     {
-      _play = play;
+      _food +=point;
     }
-    public void SetSleep(int sleep)
+    public void SetPlay(int point)
     {
-      _sleep = sleep;
+      _play +=point;
+    }
+    public void SetSleep(int point)
+    {
+      _sleep += point;
     }
     public static List<Tamagotchi> GetAll()
     {
@@ -57,5 +63,13 @@ namespace Tamagotchi.Models
     {
       _lives.Clear();
     }
-  }  
+    public static void ClearLife(int id)
+    {
+      _lives.RemoveAt(id);
+    }
+    public static Tamagotchi Find(int searchId)
+   {
+     return _lives[searchId-1];
+   }
+  }
 }

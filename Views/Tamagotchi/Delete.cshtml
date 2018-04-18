@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Dealership</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  </head>
+  <body
+    <div class="container">
+      @if (Model.Count == 0)
+      {
+        <h1>All your Tamagotchis are dead.</h1>
+        <p><a href="/tamagotchis/new">Play again</a></p>
+      }
+      else
+      {
+        <h1>Your Tamagotchi is dead.</h1>
+        <p><a href="/tamagotchis">Go play with the other ones.</a></p>
+      }
+
+
+    </div>
+  </body>
+</html>
