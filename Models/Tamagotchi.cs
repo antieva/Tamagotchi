@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
+using System.Threading;
+
 namespace TamagotchiApp.Models
 {
   public class Tamagotchi
@@ -9,6 +12,9 @@ namespace TamagotchiApp.Models
     private int _play;
     private int _sleep;
     private int _id;
+    private static int _counter = 0;
+    private static Timer tmr = new Timer (Tick, null, 10000, 10000);
+    private static int _lastId = 0;
     private static  List<Tamagotchi> _lives = new List<Tamagotchi> {};
 
     public Tamagotchi (string name, int food, int play, int sleep)
@@ -17,7 +23,7 @@ namespace TamagotchiApp.Models
       _food = food;
       _play = play;
       _sleep = sleep;
-      _id = _lives.Count + 1;
+      _id = _lastId++;
     }
     public string GetName()
     {
@@ -39,13 +45,21 @@ namespace TamagotchiApp.Models
     {
       return _id;
     }
+    public void SetId(int id)
+    {
+      _id = id;
+    }
     public void SetFood(int point)
     {
-      _food +=point;
+      _food += point;
+    }
+    public void DecrementFood(int point)
+    {
+      _food -= 1;
     }
     public void SetPlay(int point)
     {
-      _play +=point;
+      _play += point;
     }
     public void SetSleep(int point)
     {
@@ -65,11 +79,42 @@ namespace TamagotchiApp.Models
     }
     public static void ClearLife(int id)
     {
-      _lives.RemoveAt(id);
+      int i;
+      for (i = 0; i < _lives.Count; i++)
+      {
+        if (_lives[i]._id == id)
+        {
+          break;
+        }
+      }
+      if (i != _lives.Count)
+      {
+        _lives.RemoveAt(i);
+      }
     }
     public static Tamagotchi Find(int searchId)
    {
-     return _lives[searchId-1];
+     return _lives.Single(t => t._id == searchId);
+   }
+   private static void Tick(object _)
+   {
+     _counter++;
+     if (_counter % 3 == 0)
+     {
+       List<int> idsToDelete = new List<int> {};
+       foreach (Tamagotchi life in _lives)
+       {
+         life.DecrementFood(1);
+         if (life._food == 0)
+         {
+           idsToDelete.Add(life._id);
+         }
+       }
+       foreach (int id in idsToDelete)
+       {
+         ClearLife(id);
+       }
+     }
    }
   }
 }

@@ -2,43 +2,52 @@
 <html>
   <head>
     <title>Tamagotchi</title>
+    <meta http-equiv="refresh" content="10">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
   </head>
   <body
     <div class = "container">
-    <h1>Your Tamagotchi to take care of:</h1>
-    <h2>Click on each item to feed, play with it, and put it to sleep.</h2>
-    <ul>
-    @foreach(var life in Model)
+      @if (Model.Count == 0)
       {
-        <li><h4>@life.GetName()</h4></li>
-          <ul>
-            <li><a href="/tamagotchis/food/@life.GetId()">Food: @life.GetFood()points</a></li>
-            <li><a href="/tamagotchis/play/@life.GetId()">Play: @life.GetPlay()points</a></li>
-            <li><a href="/tamagotchis/sleep/@life.GetId()">Sleep: @life.GetSleep()points</a></li>
-          </ul>
-          <br>
-          <form id = "@life.GetId()"action="/tamagotchis/delete/{id}" method="post">
-            <button type="submit" name="button" class='btn btn-danger'>Kill Tamagotchi</button>
-          </form>
+        <h1>You don't have any tamagotchi to take care of yet.</h1>
       }
-    </ul>
-    <p><a href="/tamagotchis/new">Give life to another Tamagotchi</a></p>
-        <form action="/tamagotchis/delete" method="post">
-          <button type="submit" name="button" class='btn btn-danger'>Kill All  Tamagotchis</button>
-        </form>
-        <br>
-        <form action="/tamagotchis/food" method="post">
-          <button type="submit" name="button" class='btn btn-primary'>Feed</button>
-        </form>
-        <br>
-        <form action="/tamagotchis/play" method="post">
-          <button type="submit" name="button" class='btn btn-primary'>Play</button>
-        </form>
-        <br>
-        <form action="/tamagotchis/sleep" method="post">
-          <button type="submit" name="button" class='btn btn-primary'>Sleep</button>
-        </form>
+      else
+      {
+        <h1>Your Tamagotchi to take care of:</h1>
+        <h2>Click on each item to feed, play with it, and put it to sleep.</h2>
+        <ul>
+        @foreach(var life in Model)
+          {
+            <li><h4>@life.GetName()</h4></li>
+              <ul>
+                <li><a href="/tamagotchis/food/@life.GetId()">Food:  @life.GetFood()points</a></li>
+                <li><a href="/tamagotchis/play/@life.GetId()">Play:  @life.GetPlay()points</a></li>
+                <li><a href="/tamagotchis/sleep/@life.GetId()">Sleep: @life.GetSleep()points</a></li>
+              </ul>
+              <br>
+              <form id = "@life.GetId()"action="/tamagotchis/delete/{id}" method="post">
+                <button type="submit" name="button" class='btn btn-danger'>Kill @life.GetName()</button>
+              </form>
+          }
+        </ul>
+      }
+
+      <h3><a href="/tamagotchis/new">Give life to your Tamagotchi</a></h3>
+      <form action="/tamagotchis/delete" method="post">
+        <button type="submit" name="button" class='btn btn-danger'>Kill All  Tamagotchis</button>
+      </form>
+      <br>
+      <form action="/tamagotchis/food" method="post">
+        <button type="submit" name="button" class='btn btn-primary'>Feed</button>
+      </form>
+      <br>
+      <form action="/tamagotchis/play" method="post">
+        <button type="submit" name="button" class='btn btn-primary'>Play</button>
+      </form>
+      <br>
+      <form action="/tamagotchis/sleep" method="post">
+        <button type="submit" name="button" class='btn btn-primary'>Sleep</button>
+      </form>
     </div>
   </body>
 </html>

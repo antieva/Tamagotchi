@@ -25,7 +25,7 @@ namespace TamagotchiApp.Controllers
          Tamagotchi newTamagotchi = new Tamagotchi (Request.Form["name"],1,1,1);
          newTamagotchi.Save();
          List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-         return View("Index", allTamagotchis);
+         return RedirectToAction("Index");
        }
 
        [HttpPost("/tamagotchis/food")]
@@ -36,7 +36,7 @@ namespace TamagotchiApp.Controllers
            life.SetFood(1);
          }
          List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-         return View("Index", allTamagotchis);
+         return RedirectToAction("Index");
        }
        [HttpGet("/tamagotchis/food/{id}")]
         public ActionResult FeedID(int id)
@@ -44,7 +44,7 @@ namespace TamagotchiApp.Controllers
           Tamagotchi tamagotchi = Tamagotchi.Find(id);
           tamagotchi.SetFood(2);
           List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-          return View("Index", allTamagotchis);
+          return RedirectToAction("Index");
         }
 
        [HttpPost("/tamagotchis/play")]
@@ -55,7 +55,7 @@ namespace TamagotchiApp.Controllers
            life.SetPlay(1);
          }
          List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-         return View("Index", allTamagotchis);
+         return RedirectToAction("Index");
        }
 
        [HttpGet("/tamagotchis/play/{id}")]
@@ -64,7 +64,7 @@ namespace TamagotchiApp.Controllers
           Tamagotchi tamagotchi = Tamagotchi.Find(id);
           tamagotchi.SetPlay(2);
           List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-          return View("Index", allTamagotchis);
+          return RedirectToAction("Index");
         }
 
        [HttpPost("/tamagotchis/sleep")]
@@ -75,7 +75,7 @@ namespace TamagotchiApp.Controllers
            life.SetSleep(1);
          }
          List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-         return View("Index", allTamagotchis);
+         return RedirectToAction("Index");
        }
 
        [HttpGet("/tamagotchis/sleep/{id}")]
@@ -84,14 +84,14 @@ namespace TamagotchiApp.Controllers
           Tamagotchi tamagotchi = Tamagotchi.Find(id);
           tamagotchi.SetSleep(2);
           List<Tamagotchi> allTamagotchis = Tamagotchi.GetAll();
-          return View("Index", allTamagotchis);
+          return RedirectToAction("Index");
         }
 
        [HttpPost("/tamagotchis/delete")]
        public ActionResult Delete()
       {
-            Tamagotchi.ClearAll();
-            return View();
+          Tamagotchi.ClearAll();
+          return View(Tamagotchi.GetAll());
       }
       [HttpPost("/tamagotchis/delete/{id}")]
       public ActionResult DeleteLife(int id)
